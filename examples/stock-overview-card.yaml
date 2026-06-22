@@ -1,0 +1,13 @@
+type: custom:diapstash-stock-overview-card
+entity: sensor.diapstash_stock_overview
+language: de
+appearance: liquid
+palette: diapstash
+logo_position: right
+text_contrast: high
+limit: 6
+show:
+  brands: true
+  types: true
+  locations: true
+  to_wash: true

@@ -1,0 +1,31 @@
+views:
+  - title: DiapStash Multi Account
+    path: diapstash-multi
+    cards:
+      - type: custom:diapstash-current-card
+        entity: sensor.diapstash_account_a_current_diaper
+        wearing_entity: binary_sensor.diapstash_account_a_wearing
+        duration_entity: sensor.diapstash_account_a_wearing_duration_text
+        language: de
+appearance: liquid
+palette: mint
+        logo_position: right
+text_contrast: high
+
+      - type: custom:diapstash-stock-overview-card
+        entity: sensor.diapstash_account_a_stock_overview
+        language: de
+appearance: liquid
+palette: mint
+        logo_position: right
+text_contrast: high
+
+      - type: custom:diapstash-low-stock-card
+        auto_discover: true
+        low_stock_prefix: binary_sensor.diapstash_account_a_low_stock_
+        stock_type_prefix: sensor.diapstash_account_a_stock_type_
+        language: de
+appearance: liquid
+palette: mint
+        logo_position: right
+text_contrast: high

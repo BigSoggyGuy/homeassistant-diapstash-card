@@ -1,0 +1,38 @@
+views:
+  - title: DiapStash Paletten
+    path: diapstash-palettes
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:diapstash-current-card
+            language: de
+            appearance: liquid
+            text_contrast: high
+palette: diapstash
+          - type: custom:diapstash-current-card
+            language: de
+            appearance: liquid
+            palette: abdl_pastel
+          - type: custom:diapstash-current-card
+            language: de
+            appearance: liquid
+            palette: bubblegum
+          - type: custom:diapstash-current-card
+            language: de
+            appearance: liquid
+            palette: candy
+          - type: custom:diapstash-stock-overview-card
+            language: de
+            appearance: liquid
+            palette: nursery
+          - type: custom:diapstash-stock-overview-card
+            language: de
+            appearance: liquid
+            palette: mint
+
+          - type: custom:diapstash-current-card
+            language: de
+            appearance: liquid
+            palette: rainbow

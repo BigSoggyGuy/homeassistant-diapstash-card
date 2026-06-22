@@ -1,0 +1,33 @@
+views:
+  - title: DiapStash
+    path: diapstash
+    icon: mdi:wardrobe-outline
+    cards:
+      - type: custom:diapstash-current-card
+        entity: sensor.diapstash_current_diaper
+        wearing_entity: binary_sensor.diapstash_wearing
+        duration_entity: sensor.diapstash_wearing_duration_text
+streak_entity: sensor.diapstash_current_streak
+        language: auto
+appearance: liquid
+palette: diapstash
+        logo_position: right
+text_contrast: high
+
+      - type: custom:diapstash-stock-overview-card
+        entity: sensor.diapstash_stock_overview
+        language: auto
+appearance: liquid
+palette: diapstash
+        logo_position: right
+text_contrast: high
+        limit: 6
+
+      - type: custom:diapstash-low-stock-card
+        auto_discover: true
+        entity_prefix: diapstash
+        language: auto
+appearance: liquid
+palette: diapstash
+        logo_position: right
+text_contrast: high

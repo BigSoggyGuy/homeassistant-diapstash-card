@@ -1,0 +1,35 @@
+views:
+  - title: DiapStash Elegant
+    path: diapstash-elegant
+    cards:
+      - type: custom:diapstash-current-card
+        entity: sensor.diapstash_current_diaper
+        wearing_entity: binary_sensor.diapstash_wearing
+        duration_entity: sensor.diapstash_wearing_duration_text
+        streak_entity: sensor.diapstash_current_streak
+        language: de
+        appearance: liquid
+        finish: elegant
+        palette: liquid_prism
+        text_contrast: high
+        logo_position: right
+
+      - type: custom:diapstash-stock-overview-card
+        entity: sensor.diapstash_stock_overview
+        language: de
+        appearance: liquid
+        finish: elegant
+        palette: liquid_lilac
+        text_contrast: high
+        logo_position: right
+        limit: 8
+
+      - type: custom:diapstash-stock-type-card
+        language: de
+        appearance: liquid
+        finish: elegant
+        palette: liquid_aqua
+        stock_overview_entity: sensor.diapstash_stock_overview
+        fallback_to_first: true
+        text_contrast: high
+        logo_position: right

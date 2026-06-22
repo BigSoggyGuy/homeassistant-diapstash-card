@@ -1,0 +1,8 @@
+type: custom:diapstash-low-stock-card
+auto_discover: true
+entity_prefix: diapstash
+language: de
+appearance: liquid
+palette: sunset
+logo_position: right
+text_contrast: high

@@ -1,0 +1,21 @@
+{
+  "name": "homeassistant-diapstash-card",
+  "version": "0.9.0-preview.1",
+  "description": "Preview Lovelace dashboard cards for the Home Assistant DiapStash integration.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "check": "node --check dist/homeassistant-diapstash-card.js",
+    "copy": "mkdir -p dist && cp src/homeassistant-diapstash-card.js dist/homeassistant-diapstash-card.js"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "hacs",
+    "diapstash",
+    "dashboard"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,17 @@
+type: custom:diapstash-current-card
+entity: sensor.diapstash_current_diaper
+wearing_entity: binary_sensor.diapstash_wearing
+duration_entity: sensor.diapstash_wearing_duration_text
+streak_entity: sensor.diapstash_current_streak
+language: de
+appearance: liquid
+palette: abdl_pastel
+logo_position: right
+text_contrast: high
+show:
+  image: true
+  brand: true
+  size: true
+  start_time: true
+  stats: true
+  streak: true

@@ -1,0 +1,8 @@
+type: custom:diapstash-current-card
+entity: sensor.diapstash_current_diaper
+wearing_entity: binary_sensor.diapstash_wearing
+duration_entity: sensor.diapstash_wearing_duration_text
+streak_entity: sensor.diapstash_current_streak
+language: de
+preset: fancy
+logo_position: right

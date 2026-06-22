@@ -1,0 +1,10 @@
+type: custom:diapstash-stock-type-card
+entity: sensor.diapstash_stock_type_98_l
+language: de
+appearance: liquid
+palette: bubblegum
+logo_position: left
+text_contrast: high
+actions:
+  catalog: true
+  add: true

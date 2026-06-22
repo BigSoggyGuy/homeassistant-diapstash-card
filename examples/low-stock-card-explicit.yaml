@@ -1,0 +1,13 @@
+type: custom:diapstash-low-stock-card
+auto_discover: false
+entities:
+  - binary_sensor.diapstash_low_stock_98_l
+  - binary_sensor.diapstash_low_stock_27_l
+type_entities:
+  98_l: sensor.diapstash_stock_type_98_l
+  27_l: sensor.diapstash_stock_type_27_l
+language: de
+appearance: liquid
+palette: sunset
+logo_position: right
+text_contrast: high
