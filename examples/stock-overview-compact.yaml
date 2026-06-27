@@ -1,11 +1,10 @@
 type: custom:diapstash-stock-overview-card
 entity: sensor.diapstash_stock_overview
 language: de
-appearance: liquid
-palette: diapstash
+preset: fancy
 logo_position: right
-text_contrast: high
-limit: all
+# Compact view: show only the first 6 brands and types
+limit: 6
 show:
   brands: true
   types: true

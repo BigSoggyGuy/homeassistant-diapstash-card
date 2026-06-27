@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.0-preview.1
+
+- Stock overview card now shows all brands and all stock types by default.
+- `limit: all` is now supported explicitly.
+- `limit: 0` also means unlimited.
+- Added `brand_limit` and `type_limit` for separate control of the two stock sections.
+- Added compact stock overview example.
+
+
 ## 0.9.0-preview.1
 
 - Neue Presets für einfache Konfiguration.

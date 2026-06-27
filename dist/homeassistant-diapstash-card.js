@@ -2,7 +2,7 @@
 // First preview build for DiapStash Lovelace cards.
 // Cards: diapstash-current-card, diapstash-stock-overview-card, diapstash-stock-type-card, diapstash-low-stock-card
 
-const DIAPSTASH_CARD_VERSION = "0.9.0-preview.1";
+const DIAPSTASH_CARD_VERSION = "0.10.0-preview.1";
 const DEFAULT_LOGO = new URL("./logo@2x.png", import.meta.url).href;
 const DEFAULT_DARK_LOGO = new URL("./dark_logo@2x.png", import.meta.url).href;
 
@@ -37,6 +37,7 @@ const TRANSLATIONS = {
     noLowStock: "Everything looks good.",
     missingEntity: "Entity not found",
     configureEntity: "Please configure an entity.",
+    showAll: "Show all",
   },
   de: {
     currentDiaper: "Aktuelle Windel",
@@ -68,6 +69,7 @@ const TRANSLATIONS = {
     noLowStock: "Alles sieht gut aus.",
     missingEntity: "Entität nicht gefunden",
     configureEntity: "Bitte eine Entität konfigurieren.",
+    showAll: "Alle anzeigen",
   },
   fr: {
     currentDiaper: "Couche actuelle",
@@ -99,6 +101,7 @@ const TRANSLATIONS = {
     noLowStock: "Tout semble correct.",
     missingEntity: "Entité introuvable",
     configureEntity: "Veuillez configurer une entité.",
+    showAll: "Tout afficher",
   },
   es: {
     currentDiaper: "Pañal actual",
@@ -130,6 +133,7 @@ const TRANSLATIONS = {
     noLowStock: "Todo parece correcto.",
     missingEntity: "Entidad no encontrada",
     configureEntity: "Configura una entidad.",
+    showAll: "Mostrar todo",
   },
 };
 
@@ -448,6 +452,17 @@ function firstMatchingEntity(hass, predicate) {
 
 function asArray(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function resolveLimit(value, fallback = Infinity) {
+  if (value === undefined || value === null || value === "" || value === "all") return fallback;
+  if (value === false || value === 0 || value === "0") return Infinity;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function limitArray(items, limit) {
+  return limit === Infinity ? items : items.slice(0, limit);
 }
 
 function metric(label, value, tone = 0) {
@@ -1238,7 +1253,9 @@ class DiapStashStockOverviewCard extends DiapStashBaseCard {
     return deepMerge(super.defaultConfig(), {
       type: "custom:diapstash-stock-overview-card",
       entity: "sensor.diapstash_stock_overview",
-      limit: 6,
+      limit: "all",
+      brand_limit: undefined,
+      type_limit: undefined,
       show: {
         brands: true,
         types: true,
@@ -1252,7 +1269,7 @@ class DiapStashStockOverviewCard extends DiapStashBaseCard {
     return {
       entity: "sensor.diapstash_stock_overview",
       language: "auto",
-      limit: 6,
+      limit: "all",
       logo_position: "right",
     };
   }
@@ -1274,16 +1291,18 @@ class DiapStashStockOverviewCard extends DiapStashBaseCard {
     const toWash = attr(stock, "stock_to_wash", stateObj(this._hass, "sensor.diapstash_stock_to_wash")?.state);
     const brands = asArray(attr(stock, "stock_by_brand"));
     const types = asArray(attr(stock, "stock_by_type"));
-    const limit = Number(this._config.limit || 6);
+    const baseLimit = resolveLimit(this._config.limit, Infinity);
+    const brandLimit = resolveLimit(this._config.brand_limit, baseLimit);
+    const typeLimit = resolveLimit(this._config.type_limit, baseLimit);
     const logoLeftClass = this._config.logo_position === "left" ? "logo-left-padding" : "";
 
-    const brandRows = brands.slice(0, limit).map((item, index) => `
+    const brandRows = limitArray(brands, brandLimit).map((item, index) => `
       <div class="list-row tone-${index % 6}">
         <span class="list-label">${escapeHtml(safe(item.brand))}</span>
         <span class="list-value">${escapeHtml(numberSafe(item.available))}</span>
       </div>`).join("");
 
-    const typeRows = types.slice(0, limit).map((item, index) => `
+    const typeRows = limitArray(types, typeLimit).map((item, index) => `
       <div class="list-row tone-${(index + 2) % 6}">
         <span class="list-label">${escapeHtml(safe(item.label || [item.brand, item.diaper_name, item.size].filter(Boolean).join(" ")))}</span>
         <span class="list-value">${escapeHtml(numberSafe(item.available))}</span>
