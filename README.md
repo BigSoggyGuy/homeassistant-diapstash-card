@@ -1,52 +1,156 @@
-# Changelog
+# DiapStash Card
 
-## 0.9.0-preview.1
+Custom Lovelace dashboard cards for the Home Assistant DiapStash integration.
 
-- Lokalisierung der Einheit `changes` in der Streak-Anzeige.
-- Deutsch zeigt nun z. B. `1 Wechsel` statt `1 changes`.
-- Französisch/Spanisch/Englisch haben einfache Singular/Plural-Anpassung.
+## Cards
 
-## 0.6.0-preview.1
+- `custom:diapstash-current-card`
+- `custom:diapstash-stock-overview-card`
+- `custom:diapstash-stock-type-card`
+- `custom:diapstash-low-stock-card`
 
-- `Serie` wurde im Deutschen zu `Streak` geändert.
-- Aktuelle-Windel-Karte nutzt jetzt `streak_entity`, Standard: `sensor.diapstash_current_streak`.
-- Der Streak-Wert kommt nun bevorzugt aus der festen Streak-Entity statt aus `streak_text`, damit dort nicht versehentlich eine Dauer angezeigt wird.
+## Installation with HACS custom repository
 
-## 0.5.0-preview.1
+Add this repository as a HACS custom repository:
 
-- Bessere Lesbarkeit auf bunten Glasflächen.
-- Neue Option `text_contrast: high | soft`.
-- Standard ist nun `text_contrast: high`.
-- Status-Chips nutzen neutrale helle Schrift; Statusfarbe bleibt am Icon/Glow sichtbar.
-- Zusätzlicher dunkler Scrim hinter Chips für mehr Kontrast.
-- Meta-, Metric- und Listen-Texte bekommen in High-Contrast-Modus stärkeren Textschatten.
+```text
+https://github.com/BigSoggyGuy/homeassistant-diapstash-card
+```
 
-## 0.4.0-preview.1
+Repository type:
 
-- Deutlich kräftigere Farbtints und weniger graue Flächen.
-- Neue Palette `rainbow`.
-- Metrics, Listen und Meta-Felder bekommen nun eigene Farb-Tones.
-- Stock-Type-Karte kann jetzt aus `sensor.diapstash_stock_overview` den ersten Typ aus `stock_by_type` anzeigen, wenn keine dynamische `sensor.diapstash_stock_type_*` Entity existiert.
-- Standardpaletten stärker gesättigt.
+```text
+Dashboard
+```
 
-## 0.3.0-preview.1
+After installation, HACS should add this resource automatically:
 
-- Neue bunte Paletten: `diapstash`, `abdl_pastel`, `bubblegum`, `candy`, `nursery`, `mint`, `sunset`, `night`, `neutral`.
-- Neue Option `palette`.
-- Neue Option `colors` für eigene CSS-Farbvariablen.
-- Standardpalette bleibt DiapStash, aber mit deutlich stärkerem Farbtint.
-- Beispiele enthalten nun buntere Paletten.
+```text
+/hacsfiles/homeassistant-diapstash-card/homeassistant-diapstash-card.js
+```
 
-## 0.2.0-preview.1
+## Manual installation
 
-- Überarbeitetes Liquid-Glass-inspiriertes Design.
-- Deutlich transparentere Karten mit Glas-Ebenen, Glanzlichtern, Reflexions-Layern und weicheren Pills.
-- Neue Option `appearance: liquid | solid`.
-- Neue Option `logo_variant: auto | light | dark`.
-- Stock-Type-Karte fällt jetzt automatisch auf den ersten vorhandenen `sensor.diapstash_stock_type_*` zurück, wenn die konfigurierte Beispiel-Entity nicht existiert.
-- Aktuelle-Windel-Karte hat Fallbacks für ältere deutsche Entity-IDs.
-- Beispiele um `appearance: liquid` ergänzt.
+Copy the contents of `dist/` to:
 
-## 0.1.0-preview.1
+```text
+/config/www/community/homeassistant-diapstash-card/
+```
 
-- Erste Preview mit vier Custom Cards.
+Add the resource manually:
+
+```text
+/local/community/homeassistant-diapstash-card/homeassistant-diapstash-card.js
+```
+
+Type: JavaScript module.
+
+## Languages
+
+Supported UI languages:
+
+- English: `en`
+- German: `de`
+- French: `fr`
+- Spanish: `es`
+
+Default:
+
+```yaml
+language: auto
+```
+
+## Presets
+
+```yaml
+preset: fancy
+preset: abdl_playful
+preset: elegant
+preset: platinum
+preset: abdl_pastel
+preset: candy
+preset: bubblegum
+```
+
+## Current diaper card
+
+```yaml
+type: custom:diapstash-current-card
+entity: sensor.diapstash_current_diaper
+wearing_entity: binary_sensor.diapstash_wearing
+duration_entity: sensor.diapstash_wearing_duration_text
+streak_entity: sensor.diapstash_current_streak
+language: de
+preset: fancy
+logo_position: right
+```
+
+## Stock overview card
+
+Since `0.10.0-preview.1`, the stock overview card shows all brands and all stock types by default.
+
+```yaml
+type: custom:diapstash-stock-overview-card
+entity: sensor.diapstash_stock_overview
+language: de
+preset: abdl_playful
+logo_position: right
+limit: all
+show:
+  brands: true
+  types: true
+  locations: true
+  to_wash: true
+```
+
+Compact mode, for example only six rows per section:
+
+```yaml
+type: custom:diapstash-stock-overview-card
+entity: sensor.diapstash_stock_overview
+language: de
+preset: fancy
+limit: 6
+```
+
+Separate limits are also possible:
+
+```yaml
+type: custom:diapstash-stock-overview-card
+entity: sensor.diapstash_stock_overview
+language: de
+preset: fancy
+brand_limit: all
+type_limit: 12
+```
+
+`limit: 0` also means unlimited.
+
+## Stock type card
+
+```yaml
+type: custom:diapstash-stock-type-card
+stock_overview_entity: sensor.diapstash_stock_overview
+fallback_to_first: true
+language: de
+preset: fancy
+logo_position: right
+actions:
+  catalog: true
+  add: true
+```
+
+## Low stock card
+
+```yaml
+type: custom:diapstash-low-stock-card
+auto_discover: true
+entity_prefix: diapstash
+language: de
+preset: abdl_playful
+logo_position: right
+```
+
+## Development
+
+This preview build is intentionally dependency-free. The production project can later be migrated to TypeScript/Lit.
